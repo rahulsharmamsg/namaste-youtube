@@ -7,11 +7,7 @@ import { createClient } from 'redis';
 dotenv.config();
 const app = express();
 app.use(cors())
-const redisClient = createClient();
-redisClient.connect()
-redisClient.on("connect",(err)=>{
-console.log("Redish connected")
-})
+
 const port = process.env.PORT;
 app.use(express.json());
 app.use('profile',express.static('upload/profile'))
