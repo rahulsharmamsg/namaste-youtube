@@ -8,21 +8,24 @@ import { fetchVideo } from "../../store/YouTubeVideoReducer";
 import { useNavigate } from "react-router-dom";
 
 const Head = ({ name }) => {
-  const [searchQuery,setSearchQuery] = useState();
+  const [searchQuery,setSearchQuery] = useState(null);
   const [suggestions,setSuggections] = useState([]);
   const [showSuggestions,setShowSuggection] = useState(false)
   const disPatch = useDispatch();
   const cacheResult = useSelector((state)=> state.searchslice);
   const displayVideo = useSelector((state)=> state.youtube.videos)
-  console.log(suggestions)
+  console.log(searchQuery,'search query')
   const navigate = useNavigate();
   useEffect(()=>{
-
+console.log("search useeffect")
   const timer = setTimeout(()=> {
     if(cacheResult[searchQuery]){
       setSuggections(cacheResult[searchQuery])
     }else{
-    getSearchSuggection()
+      if(searchQuery && !cacheResult[searchQuery]){
+        getSearchSuggection()
+      }
+    
     }
   }, 200)
    return ()=>{
